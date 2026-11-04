@@ -15,5 +15,6 @@ Tap **Enable Camera**, then **Record**. Stop recording, tap **Save Clip**, and i
 - `app.js` — camera, viewfinder rendering, and recording
 - `manifest.webmanifest` and `icon.svg` — Home Screen metadata/icon
 
-The default option burns the HUD and scanlines into the saved clip. Turn it off for a clean 4:3 crop. This app is not hosted yet; it needs a public HTTPS URL to run as an iPhone camera app. Safari's media recording support is based on WebKit's MediaRecorder implementation.
+The default option applies a low-resolution, soft-focus, cool-washed look with gentle highlight bloom to the saved clip. Turn it off for a cleaner 4:3 recording. The look is inspired by the supplied reference clip; results depend on light and camera autofocus. This app is not hosted yet; it needs a public HTTPS URL to run as an iPhone camera app. Safari's media recording support is based on WebKit's MediaRecorder implementation.
+
 
