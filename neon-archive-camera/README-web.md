@@ -17,6 +17,9 @@ Tap **Enable Camera**, set your recording switches, then tap **Record**. Stop th
 - `app.js` — camera capture, effects, and recording
 - `manifest.webmanifest` and `icon.svg` — Home Screen metadata/icon
 
+The Home Screen artwork is `apple-touch-icon.png`, made from the supplied image. After updating, remove the old Home Screen shortcut and add the site again in Safari to refresh iOS icon caching.
+
 The app is deployed at https://neon-archive-camera.onrender.com. The look is an original approximation of the supplied footage; results depend on light and autofocus.
+
 
 
