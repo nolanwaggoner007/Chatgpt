@@ -17,8 +17,9 @@
   <div class="controls">
     <button class="start" id="start">ENABLE CAMERA</button>
     <button class="record" id="record" disabled><i></i><span>RECORD</span></button>
-    <button class="save" id="save" hidden>SAVE CLIP</button>
+    <button class="save" id="save" hidden>EXPORT VIDEO</button>
   </div>
+  <section class="clip-export" id="clipExport" hidden><video class="playback" id="playback" controls playsinline></video><p>Use the iOS share sheet to choose Save Video or Save to Files. If sharing is unavailable, tap Open Video.</p><button class="open-video" id="openVideo" type="button">OPEN VIDEO</button></section>
   <footer>
     <div class="settings-title">RECORDING LOOK <span>TOGGLES APPLY TO SAVED VIDEO</span></div>
     <div class="switches">
@@ -33,4 +34,6 @@
 </main>
 <script src="app.js"></script>
 </body></html>
+
+
 
