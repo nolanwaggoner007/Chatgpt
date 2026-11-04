@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080d13"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Neon Archive">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>Neon Archive Camera</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="app">
+  <header><div><b>NEON ARCHIVE</b><small>FIELD CAMERA / 01</small></div><span id="status">STANDBY</span></header>
+  <section class="viewfinder" aria-label="Camera viewfinder">
+    <video id="camera" autoplay muted playsinline></video><canvas id="render"></canvas>
+    <div class="hud"><div class="hudtop"><span>◉ CAM 01</span><span id="recmark">● LIVE</span></div><div class="crosshair">＋</div><div class="hudbottom"><span>4:3 • 24 FPS</span><span id="clock">00:00:00</span></div></div>
+  </section>
+  <div class="message" id="message">REAL STORIES. NO RESETS.</div>
+  <div class="controls">
+    <button class="start" id="start">ENABLE CAMERA</button>
+    <button class="record" id="record" disabled><i></i><span>RECORD</span></button>
+    <button class="save" id="save" hidden>SAVE CLIP</button>
+  </div>
+  <footer><label class="switchrow"><input type="checkbox" id="bake" checked><span class="switch"></span><span>Burn HUD + scanlines into video</span></label><p>Use the rear camera. For best results, film in good light and hold steady.</p></footer>
+</main>
+<script src="app.js"></script>
+</body></html>
+
