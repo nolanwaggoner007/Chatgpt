@@ -17,8 +17,23 @@ if(toggles.hud.checked){ctx.save();ctx.strokeStyle='rgba(255,190,62,.9)';ctx.lin
 requestAnimationFrame(drawFrame)}
 function showTime(){const s=Math.floor((Date.now()-startedAt)/1000);clockEl.textContent=`00:${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`}
 function lockSettings(locked){toggleInputs.forEach(input=>input.disabled=locked)}
-startBtn.onclick=async()=>{try{cameraStream=await navigator.mediaDevices.getUserMedia({audio:true,video:{facingMode:{ideal:'environment'},width:{ideal:3840},height:{ideal:2160},frameRate:{ideal:24,max:30}}});video.srcObject=cameraStream;await video.play();drawing=true;drawFrame();recordBtn.disabled=false;startBtn.hidden=true;statusEl.textContent='CAMERA READY';message.textContent='HOLD STEADY. LET IT HAPPEN.'}catch(e){message.textContent='CAMERA BLOCKED — OPEN THIS PAGE IN SAFARI';statusEl.textContent='NO CAMERA'}};
+startBtn.onclick=async()=>{
+  if(!navigator.mediaDevices?.getUserMedia){message.textContent='CAMERA NEEDS HTTPS — OPEN THIS SITE IN SAFARI';statusEl.textContent='UNAVAILABLE';return}
+  startBtn.disabled=true;startBtn.textContent='STARTING CAMERA…';message.textContent='ALLOW CAMERA ACCESS WHEN ASKED';
+  try{
+    const videoOnly={facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080}};
+    let result,hasAudio=true;
+    try{result=await navigator.mediaDevices.getUserMedia({video:videoOnly,audio:true})}
+    catch(audioError){result=await navigator.mediaDevices.getUserMedia({video:videoOnly,audio:false});hasAudio=false}
+    cameraStream=result;video.srcObject=cameraStream;await video.play();drawing=true;drawFrame();recordBtn.disabled=false;startBtn.hidden=true;statusEl.textContent='CAMERA READY';message.textContent=hasAudio?'HOLD STEADY. LET IT HAPPEN.':'CAMERA READY • MICROPHONE OFF';
+  }catch(e){
+    startBtn.disabled=false;startBtn.textContent='ENABLE CAMERA';statusEl.textContent='NO CAMERA';
+    const errors={NotAllowedError:'CAMERA ACCESS BLOCKED — ALLOW IT IN SAFARI WEBSITE SETTINGS',NotFoundError:'NO CAMERA WAS FOUND ON THIS DEVICE',NotReadableError:'CAMERA IS BUSY — CLOSE OTHER APPS USING IT',OverconstrainedError:'CAMERA SETTINGS UNSUPPORTED — RELOAD AND TRY AGAIN'};
+    message.textContent=errors[e.name]||'CAMERA COULD NOT START — RELOAD THE PAGE AND TRY AGAIN';
+  }
+};
 recordBtn.onclick=()=>{if(recorder?.state==='recording'){recorder.stop();return}try{chunks=[];setCanvasSize();const visual=canvas.captureStream(24),tracks=[...visual.getVideoTracks(),...cameraStream.getAudioTracks()],stream=new MediaStream(tracks),type=['video/mp4;codecs="avc1.42E01E,mp4a.40.2"','video/mp4','video/webm;codecs=vp8,opus','video/webm'].find(t=>MediaRecorder.isTypeSupported(t));recorder=new MediaRecorder(stream,type?{mimeType:type}:undefined);recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};recorder.onstop=()=>{clearInterval(timer);lockSettings(false);const blob=new Blob(chunks,{type:recorder.mimeType||'video/mp4'});if(lastURL)URL.revokeObjectURL(lastURL);lastURL=URL.createObjectURL(blob);saveBtn.hidden=false;message.textContent='CLIP READY — TAP SAVE CLIP';recordBtn.classList.remove('active');recordBtn.querySelector('span').textContent='RECORD';statusEl.textContent='CLIP READY';recmark.textContent='● LIVE'};recorder.start(1000);lockSettings(true);startedAt=Date.now();showTime();timer=setInterval(showTime,250);recordBtn.classList.add('active');recordBtn.querySelector('span').textContent='STOP';statusEl.textContent='RECORDING';recmark.textContent='● REC';message.textContent='ROLLING — KEEP THE CAMERA STEADY'}catch(e){lockSettings(false);message.textContent='RECORDING NOT SUPPORTED IN THIS BROWSER'}};
 saveBtn.onclick=()=>{if(!lastURL)return;const a=document.createElement('a');a.href=lastURL;a.download=`neon-archive-${new Date().toISOString().replace(/[:.]/g,'-')}.${recorder?.mimeType?.includes('webm')?'webm':'mp4'}`;a.click();message.textContent='IF VIDEO OPENS, USE SHARE → SAVE VIDEO'};
 window.addEventListener('pagehide',()=>{drawing=false;cameraStream?.getTracks().forEach(t=>t.stop());if(lastURL)URL.revokeObjectURL(lastURL)});
+
 
