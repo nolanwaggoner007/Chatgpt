@@ -8,7 +8,7 @@ The app requests 24 fps and uses either 960×720 for the soft look or 1440×1080
 
 Open the live site in **Safari** and allow camera/microphone access. Add it to the Home Screen with Share → **Add to Home Screen** → Add. [Apple's guide](https://support.apple.com/guide/iphone/turn-a-website-into-an-app-in-safari-iph42ab2f3a7/ios) has current steps.
 
-Tap **Enable Camera**, set your recording switches, then tap **Record**. Stop the clip and tap **Save Clip**. If iOS opens the movie preview, use Share → **Save Video** to put it in Photos.
+Tap **Enable Camera**, set your recording switches, then tap **Record**. Stop the clip, tap **Export Video**, then choose **Save Video** or **Save to Files** in the iOS share sheet. The in-app video preview and Open Video button provide fallbacks. If iOS opens the movie preview, use Share → **Save Video** to put it in Photos.
 
 ## Files
 
@@ -18,4 +18,5 @@ Tap **Enable Camera**, set your recording switches, then tap **Record**. Stop th
 - `manifest.webmanifest` and `icon.svg` — Home Screen metadata/icon
 
 The app is deployed at https://neon-archive-camera.onrender.com. The look is an original approximation of the supplied footage; results depend on light and autofocus.
+
 
