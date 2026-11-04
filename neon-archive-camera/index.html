@@ -19,9 +19,18 @@
     <button class="record" id="record" disabled><i></i><span>RECORD</span></button>
     <button class="save" id="save" hidden>SAVE CLIP</button>
   </div>
-  <footer><label class="switchrow"><input type="checkbox" id="bake" checked><span class="switch"></span><span>Apply soft, hazy reference look</span></label><p>Use the rear camera. For best results, film in good light and hold steady.</p></footer>
+  <footer>
+    <div class="settings-title">RECORDING LOOK <span>TOGGLES APPLY TO SAVED VIDEO</span></div>
+    <div class="switches">
+      <label class="switchrow"><input type="checkbox" id="softLook" checked><span class="switch"></span><span>Soft reference look</span></label>
+      <label class="switchrow"><input type="checkbox" id="scanlines"><span class="switch"></span><span>Scanlines</span></label>
+      <label class="switchrow"><input type="checkbox" id="burnHud"><span class="switch"></span><span>Burn amber HUD</span></label>
+      <label class="switchrow"><input type="checkbox" id="dayMode"><span class="switch"></span><span>Day filming</span></label>
+      <label class="switchrow"><input type="checkbox" id="nightMode"><span class="switch"></span><span>Night filming</span></label>
+    </div>
+    <p>Each switch works independently; Day and Night effects stack if both are enabled. Use the rear camera. For best results, hold steady.</p>
+  </footer>
 </main>
 <script src="app.js"></script>
 </body></html>
-
 
